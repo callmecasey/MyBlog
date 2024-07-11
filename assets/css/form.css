@@ -1,0 +1,17 @@
+.home-stuff {
+  display: flex;
+}
+
+.author-pic {
+  height: 200px;
+}
+
+.form-stuff {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#submit-button {
+  margin: 5px;
+}
