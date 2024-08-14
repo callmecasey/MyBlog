@@ -1,22 +1,65 @@
+// Wait until the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  // Load existing blog entries from localStorage and display them
+  displayBlogEntries();
+});
+
+function displayBlogEntries() {
+  let entries = JSON.parse(localStorage.getItem("blogEntries")) || [];
+  const blogContainer = document.querySelector("#blog-container");
+
+  entries.forEach((entry) => {
+    const blogElement = document.createElement("section");
+
+    const titleElement = document.createElement("article");
+    titleElement.textContent = entry.titleText;
+    titleElement.classList.add("title");
+
+    const usernameElement = document.createElement("article");
+    usernameElement.textContent = entry.usernameText;
+    usernameElement.classList.add("username");
+
+    const contentElement = document.createElement("article");
+    contentElement.textContent = entry.contentText;
+    contentElement.classList.add("content");
+
+    blogElement.appendChild(titleElement);
+    blogElement.appendChild(usernameElement);
+    blogElement.appendChild(contentElement);
+    blogContainer.appendChild(blogElement);
+  });
+}
+
 function submitBlogEntry() {
-  //grabs items from the form
-  let usernameText = document.forms["Form"]["Username"].value;
-  let titleText = document.forms["Form"]["Title"].value;
-  let contentText = document.forms["Form"]["Content"].value;
-  //alerts user to fill out boxes if they are empty
-  if (usernameText == "" || titleText == "" || contentText == "") {
-    alert("Please fill out all boxes");
+  // Get form values
+  const usernameText = document.forms["Form"]["Username"].value.trim();
+  const titleText = document.forms["Form"]["Title"].value.trim();
+  const contentText = document.forms["Form"]["Content"].value.trim();
+
+  // Validate form fields
+  if (!usernameText || !titleText || !contentText) {
+    alert("Please fill out all fields.");
     return false;
   }
-  //defines variable blogEntry with items from the form
+
+  // Create a new blog entry object
   const blogEntry = {
     usernameText,
     titleText,
     contentText,
   };
-  //puts entries into local storage
+
+  // Save the entry to localStorage
   let entries = JSON.parse(localStorage.getItem("blogEntries")) || [];
   entries.unshift(blogEntry);
   localStorage.setItem("blogEntries", JSON.stringify(entries));
-  console.log("is this working?");
+
+  // Display the new entry immediately
+  displayBlogEntries();
+
+  // Optionally, reset the form after submission
+  document.forms["Form"].reset();
+
+  console.log("Blog entry submitted");
+  return false; // Prevent form submission and page reload
 }

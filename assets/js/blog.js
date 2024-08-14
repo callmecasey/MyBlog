@@ -1,23 +1,34 @@
-console.log("hello world");
+// Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+  // Load existing blog entries from localStorage and display them
+  displayBlogEntries();
+});
+
+function displayBlogEntries() {
   let entries = JSON.parse(localStorage.getItem("blogEntries")) || [];
-  for (const entry of entries) {
-    // var element = document.createElement("div");
-    // element.appendChild(document.createTextNode(""));
-    // document.querySelector("#blog-container").appendChild(element);
-    var blogElement = document.createElement("section");
-    var titleElement = document.createElement("article");
-    var usernameElement = document.createElement("article");
-    var contentElement = document.createElement("article");
-    titleElement.appendChild(document.createTextNode(entry.titleText));
+  const blogContainer = document.querySelector("#blog-container");
+
+  // Clear existing content
+  blogContainer.innerHTML = "";
+
+  entries.forEach((entry) => {
+    const blogElement = document.createElement("section");
+
+    const titleElement = document.createElement("article");
+    titleElement.textContent = entry.titleText;
     titleElement.classList.add("title");
-    usernameElement.appendChild(document.createTextNode(entry.usernameText));
+
+    const usernameElement = document.createElement("article");
+    usernameElement.textContent = entry.usernameText;
     usernameElement.classList.add("username");
-    contentElement.appendChild(document.createTextNode(entry.contentText));
+
+    const contentElement = document.createElement("article");
+    contentElement.textContent = entry.contentText;
     contentElement.classList.add("content");
+
     blogElement.appendChild(titleElement);
     blogElement.appendChild(usernameElement);
     blogElement.appendChild(contentElement);
-    document.querySelector("#blog-container").appendChild(blogElement);
-  }
-});
+    blogContainer.appendChild(blogElement);
+  });
+}

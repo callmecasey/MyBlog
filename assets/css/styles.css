@@ -1,10 +1,8 @@
-/* General Page Styling */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
 }
 
 header {
@@ -22,7 +20,7 @@ nav {
 
 nav a {
   color: white;
-  margin: 0 15px;
+  margin: 0 10px;
   text-decoration: none;
 }
 
@@ -30,49 +28,21 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Blog Container Styling */
-#blog-container {
-  margin: 20px auto;
+.author-pic {
+  height: 150px;
+  width: auto;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.home-stuff {
+  display: flex;
+}
+
+.form-stuff {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  max-width: 800px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#blog-container section {
-  margin-bottom: 20px;
-  padding: 15px;
-  border-bottom: 1px solid #ccc;
-}
-
-#blog-container .title {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-#blog-container .username {
-  font-size: 18px;
-  color: #777;
-}
-
-#blog-container .content {
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-/* Form Styling */
-.form-stuff label {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.form-stuff input[type="text"],
-.form-stuff textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0 20px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 #submit-button {
@@ -82,6 +52,7 @@ nav a:hover {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 #submit-button:hover {
