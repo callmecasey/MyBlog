@@ -1,65 +1,30 @@
-// Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  // Load existing blog entries from localStorage and display them
-  displayBlogEntries();
-});
+  // JavaScript to handle form submission
+  function submitBlogEntry() {
+    const usernameText = document.getElementById("Username").value.trim();
+    const titleText = document.getElementById("Title").value.trim();
+    const contentText = document.getElementById("Content").value.trim();
 
-function displayBlogEntries() {
-  let entries = JSON.parse(localStorage.getItem("blogEntries")) || [];
-  const blogContainer = document.querySelector("#blog-container");
+    if (!usernameText || !titleText || !contentText) {
+      alert("Please fill out all fields.");
+      return false;
+    }
 
-  entries.forEach((entry) => {
-    const blogElement = document.createElement("section");
+    const blogEntry = {
+      usernameText,
+      titleText,
+      contentText,
+    };
 
-    const titleElement = document.createElement("article");
-    titleElement.textContent = entry.titleText;
-    titleElement.classList.add("title");
+    let entries = JSON.parse(localStorage.getItem("blogEntries")) || [];
+    entries.unshift(blogEntry);
+    localStorage.setItem("blogEntries", JSON.stringify(entries));
 
-    const usernameElement = document.createElement("article");
-    usernameElement.textContent = entry.usernameText;
-    usernameElement.classList.add("username");
-
-    const contentElement = document.createElement("article");
-    contentElement.textContent = entry.contentText;
-    contentElement.classList.add("content");
-
-    blogElement.appendChild(titleElement);
-    blogElement.appendChild(usernameElement);
-    blogElement.appendChild(contentElement);
-    blogContainer.appendChild(blogElement);
-  });
-}
-
-function submitBlogEntry() {
-  // Get form values
-  const usernameText = document.forms["Form"]["Username"].value.trim();
-  const titleText = document.forms["Form"]["Title"].value.trim();
-  const contentText = document.forms["Form"]["Content"].value.trim();
-
-  // Validate form fields
-  if (!usernameText || !titleText || !contentText) {
-    alert("Please fill out all fields.");
-    return false;
+    alert("Blog entry submitted successfully!");
+    document.forms["Form"].reset(); // Reset the form fields
+    return false; // Prevent default form submission
   }
 
-  // Create a new blog entry object
-  const blogEntry = {
-    usernameText,
-    titleText,
-    contentText,
-  };
-
-  // Save the entry to localStorage
-  let entries = JSON.parse(localStorage.getItem("blogEntries")) || [];
-  entries.unshift(blogEntry);
-  localStorage.setItem("blogEntries", JSON.stringify(entries));
-
-  // Display the new entry immediately
-  displayBlogEntries();
-
-  // Optionally, reset the form after submission
-  document.forms["Form"].reset();
-
-  console.log("Blog entry submitted");
-  return false; // Prevent form submission and page reload
-}
+  // Attach submit event to the form
+  document.forms["Form"].onsubmit = submitBlogEntry;
+});
